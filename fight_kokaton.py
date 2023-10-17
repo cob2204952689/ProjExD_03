@@ -148,11 +148,11 @@ class Score:
         self.img = self.font.render(f"スコア:{self.scr}", 0, (0,0,255))
         self.rct = self.img.get_rect()
         self.rct.center = (100,850)
+
     def update(self, screen: pg.Surface):
         self.img = self.font.render(f"スコア:{self.scr}", 0, (0,0,255))
         screen.blit(self.img, self.rct)
         
-
 
 def main():
     pg.display.set_caption("たたかえ！こうかとん")
@@ -162,9 +162,6 @@ def main():
     bombs = [Bomb() for _ in range(NUM_OF_BOMBS)]
     beam = None
     score = Score()
-    
-    
-
     clock = pg.time.Clock()
     tmr = 0
     while True:
@@ -176,7 +173,6 @@ def main():
                 beam = Beam(bird)
         
         screen.blit(bg_img, [0, 0])
-
         for bomb in bombs:
             if bird.rct.colliderect(bomb.rct):
                 # ゲームオーバー時に，こうかとん画像を切り替え，1秒間表示させる
@@ -192,10 +188,8 @@ def main():
                     bombs[i] = None
                     bird.change_img(6,screen)
                     score.scr += 1
-                    pg.display.update()
-                
+                    pg.display.update()        
         bombs = [bomb for bomb in bombs if bomb is not None]
-
         key_lst = pg.key.get_pressed()
         bird.update(key_lst, screen)
         #bomb.update(screen)
